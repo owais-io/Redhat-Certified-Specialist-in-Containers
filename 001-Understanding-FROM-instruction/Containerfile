@@ -1,0 +1,8 @@
+# Use a pinned UBI 8 image
+FROM registry.access.redhat.com/ubi8/ubi:8.7
+ 
+# Set a label
+LABEL maintainer="your.email@example.com"
+ 
+# Run a simple command
+RUN echo "Base image successfully set up" > /tmp/status.txt
