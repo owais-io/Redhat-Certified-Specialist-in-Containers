@@ -5,10 +5,10 @@
 Before beginning, make sure:
 
 - You have Podman installed:
- 
+  
   ```bash
   podman --version
-````
+  ```
 
 Expected output:
 
