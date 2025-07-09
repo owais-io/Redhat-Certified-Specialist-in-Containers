@@ -1,0 +1,20 @@
+FROM registry.access.redhat.com/ubi9/ubi-minimal
+LABEL maintainer="Your Name <your.email@example.com>"
+WORKDIR /app
+
+RUN microdnf install shadow-utils && useradd -u 1001 -d /home/appuser -m appuser && chown -R appuser:appuser /app
+
+USER appuser
+
+RUN whoami >> /tmp/user.log && ls -ld /app >> /tmp/user.log
+
+
+
+
+#--------------------------------------------------------
+
+# FROM registry.access.redhat.com/ubi9/ubi-minimal
+# LABEL maintainer="Your Name <your.email@example.com>"
+# WORKDIR /app
+
+# RUN pwd > /tmp/workdir.log && whoami >> /tmp/workdir.log
