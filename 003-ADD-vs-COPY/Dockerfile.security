@@ -1,0 +1,3 @@
+FROM alpine:latest
+ADD bad.tar.gz /malicious/
+RUN find /malicious -type f

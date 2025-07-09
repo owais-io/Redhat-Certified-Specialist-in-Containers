@@ -1,0 +1,4 @@
+FROM alpine:latest
+ADD archive.tar.gz /extracted/
+RUN ls -al /extracted/
+RUN cat /extracted/testfile.txt

@@ -27,7 +27,7 @@ The shell form runs commands using a default shell (`/bin/sh -c`).
    ```dockerfile
    FROM alpine:latest
    RUN apk add --no-cache curl
-````
+```
 
 2. Now build the image:
 

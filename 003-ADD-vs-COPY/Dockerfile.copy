@@ -1,0 +1,3 @@
+FROM alpine:latest
+COPY testfile.txt /destination/
+RUN cat /destination/testfile.txt

@@ -1,0 +1,3 @@
+FROM alpine:latest
+ADD version.txt /app/
+RUN cat /app/version.txt
