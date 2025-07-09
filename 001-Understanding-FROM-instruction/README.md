@@ -1,11 +1,11 @@
-# Understanding  FROM Instruction
+# Understanding the FROM Instruction in Container Builds
 
 ## Prerequisites
 
 Before beginning, make sure:
 
 - You have Podman installed:
-  
+ 
   ```bash
   podman --version
 ````
