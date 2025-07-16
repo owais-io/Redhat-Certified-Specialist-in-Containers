@@ -1,0 +1,22 @@
+FROM alpine:latest
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["echo", "Running container"]
+
+
+
+#--------------------------------------------------------
+
+# FROM alpine:latest
+
+# COPY entrypoint.sh /entrypoint.sh
+
+# ENTRYPOINT ["/entrypoint.sh"]
+
+# CMD ["echo", "Default command executed"]
+
+#---------------------------------------------------------
+
+# FROM alpine:latest
+# COPY entrypoint.sh /entrypoint.sh
+# ENTRYPOINT ["/entrypoint.sh"]
