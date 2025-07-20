@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  webapp:
+    image: alpine
+    env_file: .env
+    secrets:
+      - db_password_secret
+    command: sh -c "echo \$APP_NAME && cat /run/secrets/db_password_secret"
+secrets:
+  db_password_secret:
+    external: true
