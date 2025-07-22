@@ -1,0 +1,81 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-5.5.1
+
+# NOTE: If you generated this yaml from an unprivileged and rootless podman container on an SELinux
+# enabled system, check the podman generate kube man page for steps to follow to ensure that your pod/container
+# has the right permissions to access the volumes added.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-07-22T09:44:46Z"
+  labels:
+    app: 017-running-multi-container-applicationsredis1-pod
+  name: 017-running-multi-container-applicationsredis1-pod
+spec:
+  ports:
+  - name: "6379"
+    nodePort: 31098
+    port: 6379
+    targetPort: 6379
+  - name: "8000"
+    nodePort: 30864
+    port: 8000
+    targetPort: 8000
+  selector:
+    app: 017-running-multi-container-applicationsredis1-pod
+  type: NodePort
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2025-07-22T09:44:46Z"
+  labels:
+    app: 017-running-multi-container-applicationsredis1-pod
+  name: 017-running-multi-container-applicationsredis1-pod
+spec:
+  containers:
+  - args:
+    - redis-server
+    image: docker.io/library/redis:alpine
+    name: 017-running-multi-container-applicationsredis1
+    ports:
+    - containerPort: 6379
+    volumeMounts:
+    - mountPath: /data
+      name: 017-running-multi-container-applications-redis-data-pvc
+  - args:
+    - postgres
+    env:
+    - name: POSTGRES_PASSWORD_FILE
+      value: /run/secrets/db_password
+    image: docker.io/library/postgres:13-alpine
+    name: 017-running-multi-container-applicationsdb1
+    volumeMounts:
+    - mountPath: /var/lib/postgresql/data
+      name: 017-running-multi-container-applications-postgres-data-pvc
+  - command:
+    - python
+    - -m
+    - http.server
+    - "8000"
+    image: docker.io/library/python:3.9
+    name: 017-running-multi-container-applicationsweb1
+    ports:
+    - containerPort: 8000
+    volumeMounts:
+    - mountPath: /app
+      name: home-centos9-razzaq-labs-ii-redhat-certified-specialist-in-containers-017-running-multi-container-applications-app-host-0
+  volumes:
+  - name: 017-running-multi-container-applications-redis-data-pvc
+    persistentVolumeClaim:
+      claimName: 017-running-multi-container-applications-redis-data
+  - name: 017-running-multi-container-applications-postgres-data-pvc
+    persistentVolumeClaim:
+      claimName: 017-running-multi-container-applications-postgres-data
+  - hostPath:
+      path: /home/centos9/Razzaq-Labs-II/Redhat-Certified-Specialist-in-Containers/017-Running-Multi-Container-Applications/app
+      type: Directory
+    name: home-centos9-razzaq-labs-ii-redhat-certified-specialist-in-containers-017-running-multi-container-applications-app-host-0
