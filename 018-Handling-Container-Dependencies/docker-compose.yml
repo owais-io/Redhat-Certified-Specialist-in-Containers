@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: example
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  app:
+    image: python:3.9-alpine
+    volumes:
+      - ./healthcheck.sh:/healthcheck.sh
+    healthcheck:
+      test: ["CMD", "/healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_PASSWORD: example
